@@ -8,18 +8,18 @@ class Routine:
     Initial.sensor = 54
 
     # はじめのセンサ位置を指定
-    start_sensor = 0
+    start_sensor = 1
 
     # 固定するセンサ番号を指定
     fix_sensor = 29
 
     # 方向を指定
     # 1:NE->SW, 2:SW->NE, 3:NW->SE, 4:SE->NW
-    direction = 1
-    direction_name = "NE->SW"
+    direction = 3
+    direction_name = "NW->SE"
 
     # 使用する影響度ファイルを指定
-    file_name = "data/coefficient4.csv"
+    file_name = "data/coefficient3.csv"
 
     def __init__(self):
         self.anarc = AnaRc
@@ -43,14 +43,15 @@ class Routine:
         csv_writer7.writerow(csv_list)
 
         # 10 cm間隔で簡易ANA/DBを実行
-        for lum in range(0, 3):
+        for lum in range(0, 4):
             for pos in range(Routine.start_sensor, Routine.fix_sensor):
                 min_a = 10000
                 max_a = -1
 
-                for minmax in range(200, 1000, 100):
+                print(pos)
+
+                for minmax in range(200, 1000, 50):
                     fixlum = 0
-                    print(pos)
                     Initial.sensorConfig = []
                     if lum == 0:
                         fixlum = 300
@@ -66,13 +67,15 @@ class Routine:
                     self.anarc = AnaRc()
                     self.anarc.start()
 
-                    if(fixlum-20 < Initial.useSensorList[0].get_illuminance() < fixlum + 20 \
-                        and minmax - 20 < Initial.useSensorList[1].get_illuminance() < minmax + 20):
-                        print("say")
-                        if minmax < min_a:
-                            min_a = minmax
-                        if max_a < minmax:
-                            max_a = minmax
+                    sensor_move = Initial.useSensorList[0].get_history()
+                    sensor_fix = Initial.useSensorList[1].get_history()
+
+                    for i in range(0, len(sensor_fix)):
+                        if fixlum*0.93 < sensor_move[i] < fixlum*1.07 and minmax*0.93 < sensor_fix[i] < minmax*1.07:
+                            if minmax < min_a:
+                                min_a = sensor_fix[i]
+                            if max_a < minmax:
+                                max_a = sensor_fix[i]
 
                 # CSVに最小と最大を書き込む
                 csv_list = [str(10 * (Routine.fix_sensor - pos)), str(min_a), str(max_a)]

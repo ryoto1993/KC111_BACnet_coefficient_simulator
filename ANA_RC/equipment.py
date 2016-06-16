@@ -378,15 +378,17 @@ class Neighbor:
 
 
 class Sensor:
-    ID = 0
+    ID = 1
 
     def __init__(self):
-        self.ID = Sensor.ID
+        self.id = Sensor.ID
         Sensor.ID += 1
         self.ill_tar = -1  # target illuminance
         self.ill_cur = 0  # current illuminance
         self.ill_bef = 0
         self.influence = []  # influence
+
+        self.ill_history = []  # シミュレーション評価用照度値履歴
 
     def __str__(self):
         return "Sensor" + str(self.ID)
@@ -406,12 +408,21 @@ class Sensor:
     def get_target(self):
         return self.ill_tar
 
+    def get_id(self):
+        return self.id
+
     def reflect(self, light_list):
         ill_tmp = 0
         for index, l in enumerate(light_list):
             ill_tmp += l.get_luminosity() * float(self.influence[index+1])
         self.ill_bef = self.ill_cur
         self.ill_cur = ill_tmp
+
+    def append_history(self):
+        self.ill_history.append(self.ill_cur)
+
+    def get_history(self):
+        return self.ill_history
 
 
 class PowerMeter:

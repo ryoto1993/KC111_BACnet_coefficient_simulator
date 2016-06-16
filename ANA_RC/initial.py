@@ -45,8 +45,8 @@ class Initial:
 
         # 使用するセンサを設定
         for s in Initial.sensorConfig:
-            Initial.sensorList[s[0]].set_target_illuminance(s[1])
-            Initial.useSensorList.append(Initial.sensorList[s[0]])
+            Initial.sensorList[s[0]-1].set_target_illuminance(s[1])
+            Initial.useSensorList.append(Initial.sensorList[s[0]-1])
 
         # 使用する照明を設定
         for l in Initial.lightList:

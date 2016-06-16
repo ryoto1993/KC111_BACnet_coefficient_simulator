@@ -57,7 +57,7 @@ class AnaRc:
         update_sensors(self.lightList, self.useSensorList)
 
         # ここから1ステップ毎の処理を記述
-        for i in range(0, 150):
+        for i in range(0, 350):
 
             # ######## センサの変更ルール処理をここで記述！
 
@@ -85,6 +85,11 @@ class AnaRc:
             for l in self.lightList:
                 l.set_random_luminosity()
             update_sensors(self.lightList, self.useSensorList)
+            # シミュレーション評価用履歴書き込み
+            if i > 150:
+                for s in self.useSensorList:
+                    s.append_history()
+
             # for l in self.lightList:
             #     l.append_history()
 
@@ -110,6 +115,10 @@ class AnaRc:
                 if l.is_rollback():
                     l.rollback()
             update_sensors(self.lightList, self.useSensorList)
+            # シミュレーション評価用履歴書き込み
+            if i > 150:
+                for s in self.useSensorList:
+                    s.append_history()
 
         # ファイルクローズ
         # self.save_csv.close()
