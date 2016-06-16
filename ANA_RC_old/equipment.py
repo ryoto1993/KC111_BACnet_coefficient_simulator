@@ -1,7 +1,7 @@
 # coding: UTF-8
 
 import random
-from ANA_RC.calculation import *
+from ANA_RC_old.calculation import *
 
 
 def update_sensors(light_list, sensor_list):

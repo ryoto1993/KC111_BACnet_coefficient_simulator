@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from ANA_RC.initial import *
+from ANA_RC_old.initial import *
 
 
 class AnaRc:
@@ -11,7 +11,7 @@ class AnaRc:
         self.powerMeter = Initial.powerMeter[0]  # 電力計
 
         # csvの作成
-        # self.save_csv = open('data/ANA_RC/log.csv', 'w')
+        # self.save_csv = open('data/ANA_RC_old/log.csv', 'w')
         # self.csv_writer = csv.writer(self.save_csv)
         # self.csv_list = ["Step", "Power"]
         # for s in self.useSensorList:
