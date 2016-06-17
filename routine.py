@@ -6,13 +6,13 @@ from initial import *
 
 class Routine:
     # 使用する影響度ファイルを指定
-    file_name = "data/coefficient4_reverse.csv"
+    file_name = "data/coefficient1_reverse.csv"
     # センサ数を指定
-    Initial.sensor = 54
+    Initial.sensor = 66
     # はじめのセンサ位置を指定
     start_sensor = 1
     # 固定するセンサ番号を指定
-    fix_sensor = 29
+    fix_sensor = 32
 
     def __init__(self):
         self.ana_db = AnaDb
@@ -21,9 +21,9 @@ class Routine:
     def start(self):
         # csvを作成
         # csvの作成
-        file_name3 = "result/" + "300.csv"
-        file_name5 = "result/" + "500.csv"
-        file_name7 = "result/" + "700.csv"
+        file_name3 = "result/" + str(Initial.weight) + "300.csv"
+        file_name5 = "result/" + str(Initial.weight) + "500.csv"
+        file_name7 = "result/" + str(Initial.weight) + "700.csv"
         save_csv3 = open(file_name3, 'w')
         save_csv5 = open(file_name5, 'w')
         save_csv7 = open(file_name7, 'w')
@@ -36,7 +36,7 @@ class Routine:
         csv_writer7.writerow(csv_list)
 
         # 10 cm間隔で簡易ANA/DBを実行
-        for lum in range(0, 1):
+        for lum in range(0, 3):
             for pos in range(Routine.start_sensor, Routine.fix_sensor):
                 min_a = 10000
                 max_a = -1
@@ -65,7 +65,7 @@ class Routine:
                     sensor_fix = Initial.useSensorList[1].get_history()
 
                     for i in range(0, len(sensor_fix)):
-                        if fixlum*0.93 < sensor_move[i] < fixlum*1.07 and minmax*0.93 < sensor_fix[i] < minmax*1.07:
+                        if fixlum*0.92 < sensor_move[i] < fixlum*1.06 and minmax*0.92 < sensor_fix[i] < minmax*1.08:
                             if minmax < min_a:
                                 min_a = sensor_fix[i]
                             if max_a < minmax:
