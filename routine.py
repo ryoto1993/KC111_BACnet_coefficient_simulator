@@ -21,9 +21,9 @@ class Routine:
     def start(self):
         # csvを作成
         # csvの作成
-        file_name3 = "result/" + str(Initial.weight) + "300.csv"
-        file_name5 = "result/" + str(Initial.weight) + "500.csv"
-        file_name7 = "result/" + str(Initial.weight) + "700.csv"
+        file_name3 = "result/w" + str(Initial.weight) + "_300.csv"
+        file_name5 = "result/w" + str(Initial.weight) + "_500.csv"
+        file_name7 = "result/w" + str(Initial.weight) + "_700.csv"
         save_csv3 = open(file_name3, 'w')
         save_csv5 = open(file_name5, 'w')
         save_csv7 = open(file_name7, 'w')
